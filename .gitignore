@@ -1,5 +1,5 @@
 # Ignore secrets file
-draftsweep_app/.streamlit/secrets.toml
+.streamlit/secrets.toml
 
 # Ignore old code files
 test_code/
