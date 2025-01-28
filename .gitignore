@@ -1,17 +1,8 @@
 # Ignore secrets file
-draftsweep_app/.streamlit/secrets.toml
-
-# Ignore old code files
-test_code/
-
-# Ignore data files
-draftsweep_data/
+.streamlit/secrets.toml
 
 # Ignore Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
-
-# Ignore virtual environment
-mastersvenv/
 
 # Ignore pycache folder
 __pycache__/
