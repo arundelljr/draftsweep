@@ -26,23 +26,23 @@ if control_panel['Picking'][0] == 1:
     
     with column1:
         pick1 = st.selectbox("Pick 1", all_golfers)
-        pick4 = st.selectbox("Pick FORE!", all_golfers)
-        pick7 = st.selectbox("Pick 7", all_golfers)
-        pick10 = st.selectbox("Pick 10", all_golfers)
-        pick13 = st.selectbox("Pick 13", all_golfers)
+        pick2 = st.selectbox("Pick 2", all_golfers)
+        pick3 = st.selectbox("Pick 3", all_golfers)
+        pick4 = st.selectbox("Pick FORE", all_golfers)
+        pick5 = st.selectbox("Pick 5", all_golfers)
     
     with column2:
-        pick2 = st.selectbox("Pick 2", all_golfers)
-        pick5 = st.selectbox("Pick 5", all_golfers)
+        pick6 = st.selectbox("Pick 6", all_golfers)
+        pick7 = st.selectbox("Pick 7", all_golfers)
         pick8 = st.selectbox("Pick 8", all_golfers)
-        pick11 = st.selectbox("Pick 11", all_golfers)
-        pick14 = st.selectbox("Pick 14", all_golfers)
+        pick9 = st.selectbox("Pick 9", all_golfers)
+        pick10 = st.selectbox("Pick 10", all_golfers)
     
     with column3:
-        pick3 = st.selectbox("Pick 3", all_golfers)
-        pick6 = st.selectbox("Pick 6", all_golfers)
-        pick9 = st.selectbox("Pick 9", all_golfers)
+        pick11 = st.selectbox("Pick 11", all_golfers)
         pick12 = st.selectbox("Pick 12", all_golfers)
+        pick13 = st.selectbox("Pick 13", all_golfers)
+        pick14 = st.selectbox("Pick 14", all_golfers)
         pick15 = st.selectbox("Pick 15", all_golfers)
     
     user_name = [name]
