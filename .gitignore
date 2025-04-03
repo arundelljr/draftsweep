@@ -6,3 +6,6 @@
 
 # Ignore pycache folder
 __pycache__/
+
+# Ignore entry list generator notebook
+entry_list/entry_list_generator.ipynb
