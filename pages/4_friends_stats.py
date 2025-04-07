@@ -11,7 +11,7 @@ control_panel = conn.read(worksheet="friends_control_panel")
 # Allow picking through control panel condition
 if control_panel['Display stats'][0] == 1:
 
-    if st.button("Who got lucky with their picks?"):
+    if st.button("Who got lucky in the draft?"):
         
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
         chosen_df = conn.read(worksheet="friends_the_chosen_ones")
@@ -19,13 +19,13 @@ if control_panel['Display stats'][0] == 1:
         
         column1, column2, column3 = st.columns(3)
         with column1:
-            st.write("### Chosen ones")
+            st.write("### Chosen ones") # Chosen at random by the draft to keep their pick
             st.dataframe(chosen_df, hide_index = True)
         with column2:
-            st.write("### Most chosen")
+            st.write("### Most chosen") # Chosen the most by the random picker
             st.dataframe(chosen_df['player_name'].value_counts())
         with column3:
-            st.write("### Clutch Chosen")
+            st.write("### Clutch Chosen") # Number of times chosen during the first 5 rounds in the draft
             st.dataframe(filtered_chosen_df['player_name'].value_counts())
     
         picks_df = conn.read(worksheet="friends_final_picks")
@@ -41,11 +41,11 @@ if control_panel['Display stats'][0] == 1:
             matching_index = matching_index.tolist()
             pick_spread_dict[f"{p}"] = matching_index
     
-        st.write("### Pick spread")
+        st.write("### Pick spread") # Which picks did you end up with?
         pick_spread_df = pd.DataFrame({ key:pd.Series(value) for key, value in pick_spread_dict.items() })
         st.dataframe(pick_spread_df)
 
-        st.write("### Pick distance")
+        st.write("### Pick distance") # Difference in where you asked for a pick vs where it came?
         pick_distance_df = pick_spread_df.apply(lambda col: col - (col.index + 1))
         pick_distance_stats_df = pick_distance_df.agg(['sum', 'mean'])
         st.dataframe(pick_distance_df)
