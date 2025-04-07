@@ -6,7 +6,7 @@ import numpy as np
 # Control panel
 st.cache_data.clear() # Clear cache so updated gs spreadsheet
 conn = st.connection("gsheets", type=GSheetsConnection)
-control_panel = conn.read(worksheet="control_panel")
+control_panel = conn.read(worksheet="friends_control_panel")
 
 # Allow picking through control panel condition
 if control_panel['Display stats'][0] == 1:
@@ -14,7 +14,7 @@ if control_panel['Display stats'][0] == 1:
     if st.button("Who got lucky with their picks?"):
         
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
-        chosen_df = conn.read(worksheet="the_chosen_ones")
+        chosen_df = conn.read(worksheet="friends_the_chosen_ones")
         filtered_chosen_df = chosen_df[chosen_df['round'].astype('int') <= 5]
         
         column1, column2, column3 = st.columns(3)
@@ -28,8 +28,8 @@ if control_panel['Display stats'][0] == 1:
             st.write("### Clutch Chosen")
             st.dataframe(filtered_chosen_df['player_name'].value_counts())
     
-        picks_df = conn.read(worksheet="test_final_picks")
-        draft_df = conn.read(worksheet="test_final_draft")
+        picks_df = conn.read(worksheet="friends_final_picks")
+        draft_df = conn.read(worksheet="friends_final_draft")
         top_picks_df = picks_df.head(15)
         top_draft_df = draft_df.head(15)
         
@@ -59,7 +59,7 @@ if control_panel['Display stats'][0] == 1:
     if st.button("Who's doing well?"):
         
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
-        leaderboard_df = conn.read(worksheet="leaderboard")
+        leaderboard_df = conn.read(worksheet="friends_leaderboard")
         column1, column2, column3 = st.columns(3)
         
         # Numberfy all scores so total team scores can be calculated for each user
@@ -68,11 +68,11 @@ if control_panel['Display stats'][0] == 1:
         team_totals_df = leaderboard_df.groupby(['user']).agg(team_score_total=('total', 'sum'))
         
         # Calulcate how many players cut for each team    
-        cut_count_df = leaderboard_df.loc[leaderboard_df['position'].isin(['CUT', 'WD']), ['user', 'position']].groupby(['user']).agg(cut_count=('position', 'count'))
+        cut_count_df = leaderboard_df.loc[leaderboard_df['position'].isin(['CUT', 'WD', '-']), ['user', 'position']].groupby(['user']).agg(cut_count=('position', 'count'))
         
         # Calculate sum of position for each team
         positions_df = leaderboard_df.loc[:, ['fullName', 'position']]
-        draft_df = conn.read(worksheet="test_final_draft")
+        draft_df = conn.read(worksheet="final_draft")
         
         # For every column in the draft pick, merge the picks' positions and collate back into a dataframe, keeping draft column and positions
         positions_dict = {}

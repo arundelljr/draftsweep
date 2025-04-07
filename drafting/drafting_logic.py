@@ -4,7 +4,7 @@ import numpy as np
 import random
 from streamlit_gsheets import GSheetsConnection
 
-def complete_draft(df):
+def complete_draft(df, gs_worksheet, gs_chosen):
 
     """
     
@@ -62,7 +62,7 @@ def complete_draft(df):
     
     st.cache_data.clear()
     conn = st.connection("gsheets", type=GSheetsConnection)
-    conn.create(data=df, worksheet="test_final_draft") # Add final draft to gsheet
+    conn.create(data=df, worksheet=gs_worksheet) # Add final draft to gsheet
     
     chosen_df = pd.DataFrame(the_chosen_ones, columns=['round', 'player_name'])
-    conn.create(data=chosen_df, worksheet="the_chosen_ones") # Add 'chosen ones' to gsheet
+    conn.create(data=chosen_df, worksheet=gs_chosen) # Add 'chosen ones' to gsheet
