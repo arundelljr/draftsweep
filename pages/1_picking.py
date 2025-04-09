@@ -17,7 +17,7 @@ if control_panel['Picking'][0] == 1:
     
     # Tournament entry list - this will be generated thorugh APIs
     
-    st.header("The Masters!")
+    st.header("Choose your top 15 picks below")
     
     name = st.text_input("Name")
     
