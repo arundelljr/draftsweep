@@ -11,19 +11,13 @@ control_panel = conn.read(worksheet="friends_control_panel")
 # Allow picking through control panel condition
 if control_panel['Display rewards'][0] == 1:
 
-    round_scores_df = conn.read(worksheet="friends_round_scores")
-    # Find lowest round scores
-    round_scores_df.loc[round_scores_df['Score'] == 'E', ['Score']] = 0
-    round_scores_df['Score'] = round_scores_df['Score'].astype('int')
-    
-    # return fullName and min(Score) for each round 
-    lowest_round_scores_df = round_df[round_df['Score'] == round_df.groupby('Round')['Score'].transform('min')]
-    
-    
-    # Lowest Am: Where isAm == True, return golfer and username at min(position)
-    # Lowest LIV: Where isLIV == True, return golfer and user of min(position)
-    low_amateur_df = df.loc[df['isAmateur'] & (df['position'] == df['isAmateur']['position'].min()), ['position', 'fullName', 'user']]
-    low_LIV_df = df.loc[df['isLIV'] & (df['position'] == df['isLIV']['position'].min()), ['position', 'fullName', 'user']]
+    if st.button("Show the Winners"):
+        st.cache_data.clear() # Clear cache so updated gs spreadsheet
+        
+        round_scores_df = conn.read(worksheet="friends_round_scores")
+        lowest_round_scores_df = conn.read(worksheet="friends_lowest_round_scores")
+        low_am_df = conn.read(worksheet="friends_low_am")
+        low_LIV_df = conn.read(worksheet="friends_low_LIV")
     
     # DataFrame 
 
