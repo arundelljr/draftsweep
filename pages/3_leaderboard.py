@@ -113,3 +113,8 @@ elif control_panel['Display Leaderboards'][0] == 1:
 
 else:
     st.write("# Waiting for picks...")
+    st.write("Thank you to:")
+    st.cache_data.clear() # Clear cache so updated gs spreadsheet
+    picks_df = conn.read(worksheet="friends_final_picks")
+    for col in picks_df.columns:
+        st.write(col)

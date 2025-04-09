@@ -12,7 +12,6 @@ if control_panel['Display picks and draft'][0] == 1:
             
     if st.button("Show picks and drafts"):
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
-        conn.read(worksheet="friends_final_picks")
         picks_df = conn.read(worksheet="friends_final_picks")
         draft_df = conn.read(worksheet="friends_final_draft")
         st.write("### Final Draft")
@@ -21,3 +20,8 @@ if control_panel['Display picks and draft'][0] == 1:
         st.dataframe(picks_df)
 else:
     st.write("# Waiting for picks...")
+    st.write("Thank you to:")
+    st.cache_data.clear() # Clear cache so updated gs spreadsheet
+    picks_df = conn.read(worksheet="friends_final_picks")
+    for col in picks_df.columns:
+        st.write(col)
