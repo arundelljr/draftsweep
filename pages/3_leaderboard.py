@@ -115,7 +115,7 @@ if control_panel['Update Leaderboard'][0] == 1:
 
 elif control_panel['Display Leaderboards'][0] == 1:
 
-    if st.button("Show Leaderboard"):
+    if st.button("Show Leaderboards"):
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
         leaderboard_df = conn.read(worksheet="friends_leaderboard")
         
