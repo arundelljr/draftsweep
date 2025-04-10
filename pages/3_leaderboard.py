@@ -131,6 +131,7 @@ elif control_panel['Display Leaderboards'][0] == 1:
         d = {}
         for user in leaderboard_df['user'].unique():
             d[user] = leaderboard_df.loc[leaderboard_df['user'] == user, columns]
+            st.write(f"{user}'s Leaderboard")
             st.dataframe(d[user])
 
 else:
