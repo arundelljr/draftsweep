@@ -105,8 +105,8 @@ if control_panel['Update Leaderboard'][0] == 1:
 
         # Upload leaderboards to gsheets
         conn = st.connection("gsheets", type=GSheetsConnection)
-        conn.create(data=merged_df, worksheet="friends_leaderboard")
-        conn.create(data=round_scores_df, worksheet="friends_round_scores")
+        conn.update(data=merged_df, worksheet="friends_leaderboard")
+        conn.update(data=round_scores_df, worksheet="friends_round_scores")
         # conn.create(data=lowest_round_scores_df, worksheet="friends_lowest_round_scores")
         # conn.create(data=low_am_df, worksheet="friends_low_am")
         # conn.create(data=low_LIV_df, worksheet="friends_low_LIV")
