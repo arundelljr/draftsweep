@@ -44,9 +44,9 @@ if control_panel['Update Leaderboard'][0] == 1:
         round_scores_df = pd.DataFrame(round_scores)
         
         round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '1'}, ['Round']] = 1
-        round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '2'}, ['Round']] = 2
-        round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '3'}, ['Round']] = 3
-        round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '4'}, ['Round']] = 4
+        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '2'}, ['Round']] = 2
+        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '3'}, ['Round']] = 3
+        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '4'}, ['Round']] = 4
         
         
         if len(round_scores) > 95:
