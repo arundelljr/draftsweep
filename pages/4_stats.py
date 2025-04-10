@@ -68,7 +68,7 @@ if control_panel['Display stats'][0] == 1:
         team_totals_df = leaderboard_df.groupby(['user']).agg(team_score_total=('total', 'sum'))
         
         # Calulcate how many players cut for each team    
-        cut_count_df = leaderboard_df.loc[leaderboard_df['position'].isin(['CUT', 'WD', '-']), ['user', 'position']].groupby(['user']).agg(cut_count=('position', 'count'))
+        cut_count_df = leaderboard_df.loc[leaderboard_df['position'].isin(['CUT', 'WD']), ['user', 'position']].groupby(['user']).agg(cut_count=('position', 'count'))
         
         # Calculate sum of position for each team
         positions_df = leaderboard_df.loc[:, ['fullName', 'position']]
