@@ -121,10 +121,6 @@ elif control_panel['Display Leaderboards'][0] == 1:
         
         st.write("# The Masters Leaderboard")
         st.dataframe(leaderboard_df, hide_index=True)
-
-    if st.button("Show Team Leaderboards"):
-        st.cache_data.clear() # Clear cache so updated gs spreadsheet
-        leaderboard_df = conn.read(worksheet="friends_leaderboard")
         
         # Leaderboard for each team
         columns = ['position', 'fullName', 'total',	'currentRoundScore', 'thru', 'isAmateur', 'isLIV']
