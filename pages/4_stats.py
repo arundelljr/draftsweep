@@ -72,7 +72,7 @@ if control_panel['Display stats'][0] == 1:
         
         # Calculate sum of position for each team
         positions_df = leaderboard_df.loc[:, ['fullName', 'position']]
-        draft_df = conn.read(worksheet="final_draft")
+        draft_df = conn.read(worksheet="friends_final_draft")
         
         # For every column in the draft pick, merge the picks' positions and collate back into a dataframe, keeping draft column and positions
         positions_dict = {}
