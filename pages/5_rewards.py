@@ -70,11 +70,13 @@ if control_panel['Display rewards'][0] == 1:
         # where isAmateur & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
         low_am_position = leaderboard_df.loc[leaderboard_df['isAmateur'], 'position'].min()
         low_am_df = leaderboard_df.loc[leaderboard_df['isAmateur'] & (leaderboard_df['position'] == low_am_position), ['fullName', 'user']]
+        st.write("Lowest Amateur")
         st.dataframe(low_am_df)
 
         # where isLIV & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
         low_LIV_position = leaderboard_df.loc[leaderboard_df['isLIV'], 'position'].min()
         low_LIV_df = leaderboard_df.loc[leaderboard_df['isLIV'] & (leaderboard_df['position'] == low_LIV_position), ['fullName', 'user']]
+        st.write("Lowest LIV")
         st.dataframe(low_LIV_df)
 
     # DataFrame 
