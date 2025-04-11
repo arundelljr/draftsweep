@@ -27,26 +27,32 @@ if control_panel['Display rewards'][0] == 1:
         
         # where leaderboard_df['position'] == 1 return all 'golfer' and 'user'
         winner_df = leaderboard_df.loc[leaderboard_df['position'] == 1, ['fullName', 'user']]
+        st.write("Winner")
         st.dataframe(winner_df)
         # if leaderboard_df['position'] == 2 return all 'golfer' and 'user' else return np.nan
         second_df = leaderboard_df.loc[leaderboard_df['position'] == 2, ['fullName', 'user']]
+        st.write("Second")
         st.dataframe(second_df)
         
         # where leaderboard_df['R1'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df.columns.isin('R1'):
+        if leaderboard_df.columns.isin('R1') == True:
             low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == leaderboard_df['R1'].min(), ['fullName', 'user']]
+            st.write("Lowest R1")
             st.dataframe(low_R1_df)
         # where leaderboard_df['R2'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df.columns.isin('R2'):
+        if leaderboard_df.columns.isin('R2') == True:
             low_R2_df = leaderboard_df.loc[leaderboard_df['R2'] == leaderboard_df['R2'].min(), ['fullName', 'user']]
+            st.write("Lowest R2")
             st.dataframe(low_R2_df)
         # where leaderboard_df['R3'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df.columns.isin('R3'):
+        if leaderboard_df.columns.isin('R3') == True:
             low_R3_df = leaderboard_df.loc[leaderboard_df['R3'] == leaderboard_df['R3'].min(), ['fullName', 'user']]
+            st.write("Lowest R3")
             st.dataframe(low_R3_df)
         # where leaderboard_df['R4'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df.columns.isin('R1'):
+        if leaderboard_df.columns.isin('R4') == True:
             low_R4_df = leaderboard_df.loc[leaderboard_df['R4'] == leaderboard_df['R4'].min(), ['fullName', 'user']]
+            st.write("Lowest R4")
             st.dataframe(low_R4_df)
         
         # where isAmateur & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
