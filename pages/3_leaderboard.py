@@ -49,7 +49,7 @@ if control_panel['Update Leaderboard'][0] == 1:
         # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '4'}, ['Round']] = 4
         
         
-        if len(round_scores) > 95:
+        if len(round_scores) >= 95:
             # round_scores_df = pd.DataFrame(round_scores)
             # Pivot round scores table so all rounds appear alongside golfer
             round_scores_pivot_df = round_scores_df.pivot(index='fullName', columns='Round', values='Score')
@@ -78,7 +78,7 @@ if control_panel['Update Leaderboard'][0] == 1:
             on='fullName'
         )
 
-        if len(round_scores) > 95:
+        if len(round_scores) >= 95:
             rounds_merged_df = merged_df.merge(
                 round_scores_pivot_df,
                 how='left',
