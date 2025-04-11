@@ -48,7 +48,7 @@ if control_panel['Update Leaderboard'][0] == 1:
                                      else 'R2' if x == {'$numberInt': '2'}
                                      else 'R3' if x == {'$numberInt': '3'}
                                      else 'R4' if x == {'$numberInt': '4'}
-                                    )
+                                     else x)
         
         
         if len(round_scores) >= 95:
