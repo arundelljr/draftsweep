@@ -79,7 +79,7 @@ if control_panel['Update Leaderboard'][0] == 1:
         )
 
         if len(round_scores) >= 95:
-            rounds_merged_df = merged_df.merge(
+            merged_df = merged_df.merge(
                 round_scores_pivot_df,
                 how='left',
                 on='fullName'
