@@ -36,7 +36,7 @@ if control_panel['Display rewards'][0] == 1:
         
         # where leaderboard_df['R1'] == .min() return all 'golfer' and 'user'
         if 'R1' in leaderboard_df.columns:
-            low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == leaderboard_df['R1'].min(), ['fullName', 'user']]
+            low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == int(leaderboard_df['R1']).min(), ['fullName', 'user']]
             st.write("Lowest R1")
             st.dataframe(low_R1_df)
         # where leaderboard_df['R2'] == .min() return all 'golfer' and 'user'
