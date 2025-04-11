@@ -94,7 +94,7 @@ if control_panel['Update Leaderboard'][0] == 1:
         
         round_scores_df = round_scores_df.merge(
             melted_draft_df,
-            how='left'
+            how='left',
             on='fullName'
         )
         
