@@ -43,10 +43,12 @@ if control_panel['Update Leaderboard'][0] == 1:
 
         round_scores_df = pd.DataFrame(round_scores)
         
-        round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '1'}, ['Round']] = 1
-        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '2'}, ['Round']] = 2
-        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '3'}, ['Round']] = 3
-        # round_scores_df.loc[round_scores_df['Round'] == {'$numberInt': '4'}, ['Round']] = 4
+        round_scores_df['Round'].map(lambda x: 
+                                     'R1' if x == {'$numberInt': '1'}
+                                     else 'R2' if x == {'$numberInt': '2'}
+                                     else 'R3' if x == {'$numberInt': '3'}
+                                     else 'R4' if x == {'$numberInt': '4'}
+                                    )
         
         
         if len(round_scores) >= 95:
@@ -86,30 +88,25 @@ if control_panel['Update Leaderboard'][0] == 1:
             )
 
             # Update rewards tracker
-            # Find lowest round scores
+            
+            # Convert to int type.
             round_scores_df.loc[round_scores_df['Score'] == 'E', ['Score']] = 0
             round_scores_df['Score'] = round_scores_df['Score'].astype('int')
-        
-            # return fullName and min(Score) for each round 
+            
+            # Find golfers with lowest round score. Return golfer and user.
             lowest_round_scores_df = round_scores_df[round_scores_df['Score'] == round_scores_df.groupby('Round')['Score'].transform('min')]
             lowest_round_scores_df = lowest_round_scores_df.merge(
                 melted_draft_df,
                 how='left',
                 on='fullName'
             )
+            
         
-        # Lowest Am: Where isAm == True, return golfer and username at min(position)
-        # Lowest LIV: Where isLIV == True, return golfer and user of min(position)
-        # low_am_df = merged_df.loc[merged_df['isAmateur'] & (merged_df['position'] == merged_df['isAmateur']['position'].min()), ['position', 'fullName', 'user']]
-        # low_LIV_df = merged_df.loc[merged_df['isLIV'] & (merged_df['position'] == merged_df['isLIV']['position'].min()), ['position', 'fullName', 'user']]
-
         # Upload leaderboards to gsheets
         conn = st.connection("gsheets", type=GSheetsConnection)
         conn.update(data=merged_df, worksheet="friends_leaderboard")
         conn.update(data=round_scores_df, worksheet="friends_round_scores")
-        # conn.create(data=lowest_round_scores_df, worksheet="friends_lowest_round_scores")
-        # conn.create(data=low_am_df, worksheet="friends_low_am")
-        # conn.create(data=low_LIV_df, worksheet="friends_low_LIV")
+        
         st.write("Leaderboard Updated")
 
 

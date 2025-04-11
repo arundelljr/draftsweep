@@ -13,12 +13,50 @@ if control_panel['Display rewards'][0] == 1:
 
     if st.button("Show the Winners"):
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
+
+        leaderboard_df = conn.read(worksheet="friends_leaderboard")
         
-        round_scores_df = conn.read(worksheet="friends_round_scores")
-        lowest_round_scores_df = conn.read(worksheet="friends_lowest_round_scores")
-        low_am_df = conn.read(worksheet="friends_low_am")
-        low_LIV_df = conn.read(worksheet="friends_low_LIV")
+        # Numberfy all scores so total team scores can be calculated for each user
+        leaderboard_df['total'] = leaderboard_df['total'].replace(to_replace=['E', '-'], value=0)
+        leaderboard_df['total'] = leaderboard_df['total'].astype('int')
     
+        # Numberfy all positions
+        leaderboard_df = leaderboard_df.map(lambda x: x if str(x).isdigit() else np.nan if str(x).isalpha() else np.nan if str(x) == "-" else int(str(x).strip('T')))
+        
+        # Calculate rewards
+        
+        # where leaderboard_df['position'] == 1 return all 'golfer' and 'user'
+        winner_df = leaderboard_df.loc[leaderboard_df['position'] == 1, ['fullName', 'user']]
+        st.dataframe(winner_df)
+        # if leaderboard_df['position'] == 2 return all 'golfer' and 'user' else return np.nan
+        second_df = leaderboard_df.loc[leaderboard_df['position'] == 2, ['fullName', 'user']]
+        st.dataframe(second_df)
+        
+        # where leaderboard_df['R1'] == .min() return all 'golfer' and 'user'
+        if [leaderboard_df['R1']:
+            low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == leaderboard_df['R1'].min(), ['fullName', 'user']]
+            st.dataframe(low_R1_df)
+        # where leaderboard_df['R2'] == .min() return all 'golfer' and 'user'
+        if [leaderboard_df['R2']:
+            low_R2_df = leaderboard_df.loc[leaderboard_df['R2'] == leaderboard_df['R2'].min(), ['fullName', 'user']]
+            st.dataframe(low_R2_df)
+        # where leaderboard_df['R3'] == .min() return all 'golfer' and 'user'
+        if [leaderboard_df['R3']:
+            low_R3_df = leaderboard_df.loc[leaderboard_df['R3'] == leaderboard_df['R3'].min(), ['fullName', 'user']]
+            st.dataframe(low_R3_df)
+        # where leaderboard_df['R4'] == .min() return all 'golfer' and 'user'
+        if [leaderboard_df['R4']:
+            low_R4_df = leaderboard_df.loc[leaderboard_df['R4'] == leaderboard_df['R4'].min(), ['fullName', 'user']]
+            st.dataframe(low_R4_df)
+        
+        # where isAmateur & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
+        low_am_df = leaderboard_df.loc[leaderboard_df['isAmateur'] & (leaderboard_df['position'] == leaderboard_df['isAmateur']['position'].min()), ['fullName', 'user']]
+        st.dataframe(low_am_df)
+
+        # where isLIV & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
+        low_LIV_df = leaderboard_df.loc[leaderboard_df['isLIV'] & (leaderboard_df['position'] == leaderboard_df['isLIV']['position'].min()), ['fullName', 'user']]
+        st.dataframe(low_LIV_df)
+
     # DataFrame 
 
 
@@ -29,3 +67,28 @@ else:
     picks_df = conn.read(worksheet="friends_final_picks")
     for col in picks_df.columns:
         st.write(col)
+
+
+
+
+'''
+rewards_dict = {
+            'category' : ['1st', '2nd', 'lowest R1', 'lowest R2', 'lowest R3', 'lowest R4', 'lowest Amateur', 'lowest LIV'],
+            'golfers' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
+            'users' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
+            'money' : [80, 20, 10, 10, 10, 10, 10, 10]
+}
+
+rewards_dict = {
+            '1st' : [], 
+            '2nd' : [], 
+            'lowest R1' : [], 
+            'lowest R2': [], 
+            'lowest R3' : [], 
+            'lowest R4' : [], 
+            'lowest Amateur' : [], 
+            'lowest LIV' : []
+}
+
+'''
+        
