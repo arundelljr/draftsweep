@@ -15,6 +15,9 @@ if control_panel['Display rewards'][0] == 1:
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
 
         leaderboard_df = conn.read(worksheet="friends_leaderboard")
+        round_scores_df = conn.read(worksheet="friends_round_scores")
+
+        # Update rewards tracker
         
         # Numberfy all scores so total team scores can be calculated for each user
         leaderboard_df['total'] = leaderboard_df['total'].replace(to_replace=['E', '-'], value=0)
@@ -24,7 +27,7 @@ if control_panel['Display rewards'][0] == 1:
         leaderboard_df['position'] = leaderboard_df['position'].map(lambda x: x if str(x).isdigit() else np.nan if str(x).isalpha() else np.nan if str(x) == "-" else int(str(x).strip('T')))
         
         # Calculate rewards
-        
+
         # where leaderboard_df['position'] == 1 return all 'golfer' and 'user'
         winner_df = leaderboard_df.loc[leaderboard_df['position'] == 1, ['fullName', 'user']]
         st.write("Winner")
@@ -33,27 +36,36 @@ if control_panel['Display rewards'][0] == 1:
         second_df = leaderboard_df.loc[leaderboard_df['position'] == 2, ['fullName', 'user']]
         st.write("Second")
         st.dataframe(second_df)
+
+        # Find golfers with lowest round score. Return golfer and user.
+        lowest_round_scores_df = round_scores_df[round_scores_df['Score'] == round_scores_df.groupby('Round')['Score'].transform('min')]
+        st.write("Lowest round scores")
+        st.dataframe(lowest_round_scores_df)
         
         # where leaderboard_df['R1'] == .min() return all 'golfer' and 'user'
-        if 'R1' in leaderboard_df.columns:
-            low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == int(leaderboard_df['R1']).min(), ['fullName', 'user']]
-            st.write("Lowest R1")
-            st.dataframe(low_R1_df)
+        #if 'R1' in leaderboard_df.columns:
+         #   leaderboard_df['R1'] = leaderboard_df['R1'].astype('int')
+          #  low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == leaderboard_df['R1'].min(), ['fullName', 'user']]
+           # st.write("Lowest R1")
+            #st.dataframe(low_R1_df)
         # where leaderboard_df['R2'] == .min() return all 'golfer' and 'user'
-        if 'R2' in leaderboard_df.columns:
-            low_R2_df = leaderboard_df.loc[leaderboard_df['R2'] == leaderboard_df['R2'].min(), ['fullName', 'user']]
-            st.write("Lowest R2")
-            st.dataframe(low_R2_df)
+        #if 'R2' in leaderboard_df.columns:
+         #   leaderboard_df['R2'] = leaderboard_df['R2'].astype('int')
+          #  low_R2_df = leaderboard_df.loc[leaderboard_df['R2'] == leaderboard_df['R2'].min(), ['fullName', 'user']]
+           # st.write("Lowest R2")
+            #st.dataframe(low_R2_df)
         # where leaderboard_df['R3'] == .min() return all 'golfer' and 'user'
-        if 'R3' in leaderboard_df.columns:
-            low_R3_df = leaderboard_df.loc[leaderboard_df['R3'] == leaderboard_df['R3'].min(), ['fullName', 'user']]
-            st.write("Lowest R3")
-            st.dataframe(low_R3_df)
+        #if 'R3' in leaderboard_df.columns:
+         #   leaderboard_df['R3'] = leaderboard_df['R3'].astype('int')
+          #  low_R3_df = leaderboard_df.loc[leaderboard_df['R3'] == leaderboard_df['R3'].min(), ['fullName', 'user']]
+           # st.write("Lowest R3")
+            #st.dataframe(low_R3_df)
         # where leaderboard_df['R4'] == .min() return all 'golfer' and 'user'
-        if 'R4' in leaderboard_df.columns:
-            low_R4_df = leaderboard_df.loc[leaderboard_df['R4'] == leaderboard_df['R4'].min(), ['fullName', 'user']]
-            st.write("Lowest R4")
-            st.dataframe(low_R4_df)
+        #if 'R4' in leaderboard_df.columns:
+         #   leaderboard_df['R4'] = leaderboard_df['R4'].astype('int')
+          #  low_R4_df = leaderboard_df.loc[leaderboard_df['R4'] == leaderboard_df['R4'].min(), ['fullName', 'user']]
+           # st.write("Lowest R4")
+            #st.dataframe(low_R4_df)
         
         # where isAmateur & leaderboard_df['position'] == .min() return all 'golfer' and 'user'
         low_am_df = leaderboard_df.loc[leaderboard_df['isAmateur'] & (leaderboard_df['position'] == leaderboard_df['isAmateur']['position'].min()), ['fullName', 'user']]

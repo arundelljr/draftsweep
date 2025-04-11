@@ -87,20 +87,17 @@ if control_panel['Update Leaderboard'][0] == 1:
                 on='fullName'
             )
 
-            # Update rewards tracker
-            
-            # Convert to int type.
-            round_scores_df.loc[round_scores_df['Score'] == 'E', ['Score']] = 0
-            round_scores_df['Score'] = round_scores_df['Score'].astype('int')
-            
-            # Find golfers with lowest round score. Return golfer and user.
-            lowest_round_scores_df = round_scores_df[round_scores_df['Score'] == round_scores_df.groupby('Round')['Score'].transform('min')]
-            lowest_round_scores_df = lowest_round_scores_df.merge(
-                melted_draft_df,
-                how='left',
-                on='fullName'
-            )
-            
+        
+        # Convert to int type.
+        round_scores_df.loc[round_scores_df['Score'] == 'E', ['Score']] = 0
+        round_scores_df['Score'] = round_scores_df['Score'].astype('int')
+        
+        round_scores_df = round_scores_df.merge(
+            melted_draft_df,
+            how='left'
+            on='fullName'
+        )
+        
         
         # Upload leaderboards to gsheets
         conn = st.connection("gsheets", type=GSheetsConnection)
