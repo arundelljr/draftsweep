@@ -43,7 +43,7 @@ if control_panel['Update Leaderboard'][0] == 1:
 
         round_scores_df = pd.DataFrame(round_scores)
         
-        round_scores_df['Round'].map(lambda x: 
+        round_scores_df['Round'] = round_scores_df['Round'].map(lambda x: 
                                      'R1' if x == {'$numberInt': '1'}
                                      else 'R2' if x == {'$numberInt': '2'}
                                      else 'R3' if x == {'$numberInt': '3'}
