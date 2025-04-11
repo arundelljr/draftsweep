@@ -101,19 +101,16 @@ if control_panel['Update Leaderboard'][0] == 1:
             on='fullName'
         )
 
-        
-
         # Get current datetime
         now = datetime.now()
-
-        # Just the time
-        current_time = now.time()
+        # Get hour and min string
+        time = now.strftime("%H:%M")
         
         # Upload leaderboards to gsheets
         conn = st.connection("gsheets", type=GSheetsConnection)
         conn.update(data=merged_df, worksheet="friends_leaderboard")
         conn.update(data=round_scores_df, worksheet="friends_round_scores")
-        conn.update(data=current_time, worksheet="friends_last_update")
+        conn.update(data=time, worksheet="friends_last_update")
         
         st.write("Leaderboard Updated")
         
