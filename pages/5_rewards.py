@@ -33,19 +33,19 @@ if control_panel['Display rewards'][0] == 1:
         st.dataframe(second_df)
         
         # where leaderboard_df['R1'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df['R1']:
+        if leaderboard_df.columns.isin('R1'):
             low_R1_df = leaderboard_df.loc[leaderboard_df['R1'] == leaderboard_df['R1'].min(), ['fullName', 'user']]
             st.dataframe(low_R1_df)
         # where leaderboard_df['R2'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df['R2']:
+        if leaderboard_df.columns.isin('R2'):
             low_R2_df = leaderboard_df.loc[leaderboard_df['R2'] == leaderboard_df['R2'].min(), ['fullName', 'user']]
             st.dataframe(low_R2_df)
         # where leaderboard_df['R3'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df['R3']:
+        if leaderboard_df.columns.isin('R3'):
             low_R3_df = leaderboard_df.loc[leaderboard_df['R3'] == leaderboard_df['R3'].min(), ['fullName', 'user']]
             st.dataframe(low_R3_df)
         # where leaderboard_df['R4'] == .min() return all 'golfer' and 'user'
-        if leaderboard_df['R4']:
+        if leaderboard_df.columns.isin('R1'):
             low_R4_df = leaderboard_df.loc[leaderboard_df['R4'] == leaderboard_df['R4'].min(), ['fullName', 'user']]
             st.dataframe(low_R4_df)
         
