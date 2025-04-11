@@ -21,7 +21,7 @@ if control_panel['Display rewards'][0] == 1:
         leaderboard_df['total'] = leaderboard_df['total'].astype('int')
     
         # Numberfy all positions
-        leaderboard_df = leaderboard_df.map(lambda x: x if str(x).isdigit() else np.nan if str(x).isalpha() else np.nan if str(x) == "-" else int(str(x).strip('T')))
+        leaderboard_df['position'] = leaderboard_df['position'].map(lambda x: x if str(x).isdigit() else np.nan if str(x).isalpha() else np.nan if str(x) == "-" else int(str(x).strip('T')))
         
         # Calculate rewards
         
@@ -71,24 +71,24 @@ else:
 
 
 
-'''
-rewards_dict = {
-            'category' : ['1st', '2nd', 'lowest R1', 'lowest R2', 'lowest R3', 'lowest R4', 'lowest Amateur', 'lowest LIV'],
-            'golfers' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
-            'users' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
-            'money' : [80, 20, 10, 10, 10, 10, 10, 10]
-}
+#
+# rewards_dict = {
+#            'category' : ['1st', '2nd', 'lowest R1', 'lowest R2', 'lowest R3', 'lowest R4', 'lowest Amateur', 'lowest LIV'],
+#            'golfers' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
+#            'users' : ['-', '-', '-', '-', '-', '-', '-', '-'], 
+#            'money' : [80, 20, 10, 10, 10, 10, 10, 10]
+#}
 
-rewards_dict = {
-            '1st' : [], 
-            '2nd' : [], 
-            'lowest R1' : [], 
-            'lowest R2': [], 
-            'lowest R3' : [], 
-            'lowest R4' : [], 
-            'lowest Amateur' : [], 
-            'lowest LIV' : []
-}
+#rewards_dict = {
+#            '1st' : [], 
+#            '2nd' : [], 
+#            'lowest R1' : [], 
+#            'lowest R2': [], 
+#            'lowest R3' : [], 
+#            'lowest R4' : [], 
+#            'lowest Amateur' : [], 
+#            'lowest LIV' : []
+#}
 
-'''
+
         
