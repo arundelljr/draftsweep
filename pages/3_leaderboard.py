@@ -10,6 +10,9 @@ st.cache_data.clear() # Clear cache so updated gs spreadsheet
 conn = st.connection("gsheets", type=GSheetsConnection)
 control_panel = conn.read(worksheet="friends_control_panel")
 
+time = conn.read(worksheet="friends_last_update")
+st.write(f"Last updated at {time}")
+
 # Allow picking through control panel condition
 if control_panel['Update Leaderboard'][0] == 1:
     
@@ -123,13 +126,10 @@ if control_panel['Display Leaderboards'][0] == 1:
     if st.button("Show Leaderboards"):
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
         leaderboard_df = conn.read(worksheet="friends_leaderboard")
-        # time = conn.read(worksheet="friends_last_update")
         
         st.write("# The Masters Leaderboard")
-        # st.write(f"Last updated at {time}")
         st.dataframe(leaderboard_df, hide_index=True)
 
-        
         
         # Leaderboard for each team
         columns = ['position', 'fullName', 'total',	'currentRoundScore', 'thru', 'isAmateur', 'isLIV']
