@@ -10,8 +10,8 @@ st.cache_data.clear() # Clear cache so updated gs spreadsheet
 conn = st.connection("gsheets", type=GSheetsConnection)
 control_panel = conn.read(worksheet="friends_control_panel")
 
-# time = conn.read(worksheet="friends_last_update")
-# st.write(f"Last updated at {time[0]}")
+time = conn.read(worksheet="friends_last_update")
+st.write(f"Last updated at {time.values[0][0]}")
 
 # Allow picking through control panel condition
 if control_panel['Update Leaderboard'][0] == 1:
