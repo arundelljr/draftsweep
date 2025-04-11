@@ -3,7 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import requests
 import pandas as pd
 from entry_list.entry_list import LIV_golfers
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Control panel
 st.cache_data.clear() # Clear cache so updated gs spreadsheet
@@ -106,9 +106,9 @@ if control_panel['Update Leaderboard'][0] == 1:
 
         # Get current datetime
         now = datetime.now()
-        # Get hour and min string
-        time = now.strftime("%H:%M")
+        adjusted_now = now + timedelta(hours=1)
 
+        time = adjusted_now.strftime("%H:%M")
         time_df = pd.DataFrame([time])
         
         # Upload leaderboards to gsheets
