@@ -3,6 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import requests
 import pandas as pd
 from entry_list.entry_list import LIV_golfers
+import datetime
 
 # Control panel
 st.cache_data.clear() # Clear cache so updated gs spreadsheet
@@ -26,8 +27,10 @@ if control_panel['Update Leaderboard'][0] == 1:
         response = requests.get(url, headers=headers, params=querystring)
         response_json = response.json()
 
+
         # Leaderboard dataframe creation
         api_leaderboard_json = response_json["leaderboardRows"]
+
 
         # Parse round data
         # Lowest R1, lowest R2, lowest R3, lowest R4: Input from gssheets or Leaderboard or if today is thursday get min(currentRoundScore)
@@ -97,12 +100,14 @@ if control_panel['Update Leaderboard'][0] == 1:
             how='left',
             on='fullName'
         )
-        
+
+        time = datetime.time
         
         # Upload leaderboards to gsheets
         conn = st.connection("gsheets", type=GSheetsConnection)
         conn.update(data=merged_df, worksheet="friends_leaderboard")
         conn.update(data=round_scores_df, worksheet="friends_round_scores")
+        conn.update(data=time, worksheet="friends_last_update")
         
         st.write("Leaderboard Updated")
 
@@ -112,9 +117,13 @@ if control_panel['Display Leaderboards'][0] == 1:
     if st.button("Show Leaderboards"):
         st.cache_data.clear() # Clear cache so updated gs spreadsheet
         leaderboard_df = conn.read(worksheet="friends_leaderboard")
+        time = conn.read(worksheet="friends_last_update")
         
         st.write("# The Masters Leaderboard")
+        st.write(f"Last updated at {time}")
         st.dataframe(leaderboard_df, hide_index=True)
+
+        
         
         # Leaderboard for each team
         columns = ['position', 'fullName', 'total',	'currentRoundScore', 'thru', 'isAmateur', 'isLIV']
